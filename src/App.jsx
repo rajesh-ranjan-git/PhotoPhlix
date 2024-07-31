@@ -1,7 +1,11 @@
+import Navbar from "./Components/Navbar";
+import { Outlet } from "react-router";
+
 const App = () => {
   return (
     <>
-      <h1>This is PhotoPhlix App</h1>
+      <Navbar />
+      <Outlet />
     </>
   );
 };
