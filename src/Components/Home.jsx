@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PhotoCard from "./PhotoCard";
+import Lightbox from "lightbox.js-react";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [favPhotos, setFavPhotos] = useState([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [isLightBoxOpen, setIsLightboxOpen] = useState(false);
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -42,6 +45,15 @@ const Home = () => {
     }
   };
 
+  const openLightbox = (index) => {
+    setLightboxIndex(index);
+    setIsLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+  };
+
   return (
     <main className="mt-28 mx-10">
       <section className="photos">
@@ -56,12 +68,20 @@ const Home = () => {
                 favPhotos={favPhotos}
                 setFavPhotos={setFavPhotos}
                 handleSetFavPhoto={handleSetFavPhotos}
+                openLightbox={openLightbox}
                 className="photo"
               />
             );
           })
         )}
       </section>
+
+      {isLightBoxOpen && (
+        <Lightbox
+          mainSrc={photos[lightboxIndex].urls.full}
+          onCloseRequest={closeLightbox}
+        />
+      )}
     </main>
   );
 };

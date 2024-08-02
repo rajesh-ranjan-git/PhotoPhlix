@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHeart, FaDownload, FaShare } from "react-icons/fa";
 
-const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos }) => {
+const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, openLightbox }) => {
   const handleShare = (photoUrl) => {
     const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
       `Checkout this awesome photo:${photoUrl}`
@@ -32,6 +32,7 @@ const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos }) => {
           className="h-auto max-w-lg transition-all duration-300 rounded-lg blur-none hover:blur-sm w-[100%]"
           src={photo.urls.regular}
           alt={photo.alt_description}
+          onClick={() => openLightbox(index)}
         />
         <div className="photo info">
           <div className="photo-header">
