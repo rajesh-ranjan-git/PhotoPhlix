@@ -1,7 +1,23 @@
 import React from "react";
 import { FaHeart, FaDownload, FaShare } from "react-icons/fa";
 
-const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, setFavPhotos }) => {
+const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos }) => {
+  const handleShare = (photoUrl) => {
+    const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+      `Checkout this awesome photo:${photoUrl}`
+    )}`;
+    window.open(shareUrl, `_blank`);
+  };
+
+  const handleDownload = (photoUrl, photoId) => {
+    const link = document.createElement("a");
+    link.href = photoUrl;
+    link.download = `photo_${photoId}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <article
       key={photo.id}
@@ -38,10 +54,20 @@ const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, setFavPhotos }) => {
               <FaHeart className="heart-icon" />
               {photo.likes}
             </p>
-            <button className="sahre-btn">
+            <button
+              className="sahre-btn"
+              onClick={() => {
+                handleShare(photo.urls.regular);
+              }}
+            >
               <FaShare />
             </button>
-            <button className="download-btn">
+            <button
+              className="download-btn"
+              onClick={() => {
+                handleDownload(photo.urls.full, photo.id);
+              }}
+            >
               <FaDownload />
             </button>
           </div>
