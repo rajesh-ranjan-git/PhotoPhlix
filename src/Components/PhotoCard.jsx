@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHeart, FaDownload, FaShare } from "react-icons/fa";
 
-const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, openLightbox }) => {
+const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, setFavPhotos }) => {
   const handleShare = (photoUrl) => {
     const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
       `Checkout this awesome photo:${photoUrl}`
@@ -32,7 +32,6 @@ const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, openLightbox }) => {
           className="h-auto w-[100%] m-auto max-w-lg object-cover transition-all duration-300 rounded-lg blur-none hover:blur-sm"
           src={photo.urls.regular}
           alt={photo.alt_description}
-          onClick={() => openLightbox(index)}
         />
         <div className="photo info m-2">
           <div className="photo-header flex justify-between">
@@ -42,7 +41,7 @@ const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, openLightbox }) => {
             <button
               className={`favourite-btn ${
                 favPhotos.some((favPhoto) => favPhoto.id === photo.id)
-                  ? "active"
+                  ? "text-red-800"
                   : ""
               }`}
               onClick={() => {
