@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PhotoCard from "./PhotoCard";
-import Lightbox from "lightbox.js-react";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
