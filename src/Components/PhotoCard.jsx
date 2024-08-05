@@ -36,7 +36,7 @@ const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, openLightbox }) => {
         />
         <div className="photo info m-2">
           <div className="photo-header flex justify-between">
-            <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h4 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {photo.user.name}
             </h4>
             <button
@@ -52,29 +52,31 @@ const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, openLightbox }) => {
               <FaHeart />
             </button>
           </div>
-          <div className="photo-actions flex justify-evenly">
-            <div className="flex items-center">
-              <div>
-                <FaHeart className="heart-icon" />
+          <div className="flex justify-between">
+            <div className="photo-actions flex justify-evenly w-[100%]">
+              <div className="flex items-center">
+                <div className="mx-2">
+                  <FaHeart className="heart-icon" />
+                </div>
+                <div>{photo.likes}</div>
               </div>
-              <div>{photo.likes}</div>
+              <button
+                className="sahre-btn"
+                onClick={() => {
+                  handleShare(photo.urls.regular);
+                }}
+              >
+                <FaShare />
+              </button>
+              <button
+                className="download-btn"
+                onClick={() => {
+                  handleDownload(photo.urls.full, photo.id);
+                }}
+              >
+                <FaDownload />
+              </button>
             </div>
-            <button
-              className="sahre-btn"
-              onClick={() => {
-                handleShare(photo.urls.regular);
-              }}
-            >
-              <FaShare />
-            </button>
-            <button
-              className="download-btn"
-              onClick={() => {
-                handleDownload(photo.urls.full, photo.id);
-              }}
-            >
-              <FaDownload />
-            </button>
             <a href="{photo.user.portfolio_url}">
               <img
                 src={photo.user.profile_image.medium}
