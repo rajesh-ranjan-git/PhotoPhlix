@@ -29,7 +29,7 @@ const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, openLightbox }) => {
     >
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-2">
         <img
-          className="h-auto max-w-lg transition-all duration-300 rounded-lg blur-none hover:blur-sm w-[100%]"
+          className="h-auto w-[100%] m-auto max-w-lg object-cover transition-all duration-300 rounded-lg blur-none hover:blur-sm"
           src={photo.urls.regular}
           alt={photo.alt_description}
           onClick={() => openLightbox(index)}
