@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaHeart, FaDownload, FaShare } from "react-icons/fa";
 import { useGlobalContext } from "../Context/GlobalContext";
 
@@ -26,9 +26,12 @@ const PhotoCard = ({ photo, index }) => {
     );
 
     if (existingIndex !== -1) {
-      setFavPhotos((prevFavorites) => {
-        prevFavorites.filter((favPhoto) => favPhoto.id != photoId);
-      });
+      const photoIdxToRemove = favPhotos.findIndex(
+        (favPhoto) => favPhoto.id === photoId
+      );
+      const photosArr = [...favPhotos];
+      photosArr.splice(photoIdxToRemove, 1);
+      setFavPhotos(photosArr);
     } else {
       const photoToAdd = photos.find((photo) => photo.id === photoId);
       setFavPhotos((prevFavorites) => [...prevFavorites, photoToAdd]);

@@ -17,14 +17,13 @@ const Favorites = () => {
   const { lightboxIndex, setLightboxIndex } = lightboxIndexContext;
   const { isLightboxOpen, setIsLightboxOpen } = isLightboxOpenContext;
   const { searchQuery } = searchQueryContext;
-  const { page, setPage } = pageContext;
 
   return (
     <main className="mt-28 mx-10">
       <section className="photos flex justify-evenly flex-wrap">
         {loading ? (
           <p>Loading...</p>
-        ) : (
+        ) : favPhotos.length > 0 ? (
           favPhotos.map((photo, index) => {
             return (
               <PhotoCard
@@ -35,6 +34,8 @@ const Favorites = () => {
               />
             );
           })
+        ) : (
+          <p>No Favorite Photos yet...</p>
         )}
       </section>
 
