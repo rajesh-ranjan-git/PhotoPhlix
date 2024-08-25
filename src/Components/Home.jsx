@@ -2,14 +2,25 @@ import React, { useEffect, useState } from "react";
 import PhotoCard from "./PhotoCard";
 import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { useGlobalContext } from "../Context/GlobalContext";
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
-  const [photos, setPhotos] = useState([]);
-  const [favPhotos, setFavPhotos] = useState([]);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const {
+    loadingContext,
+    photosContext,
+    favPhotosContext,
+    lightboxIndexContext,
+    isLightboxOpenContext,
+    queryContext,
+    searchQueryContext,
+  } = useGlobalContext();
+
+  const { loading, setLoading } = loadingContext;
+  const { photos, setPhotos } = photosContext;
+  const { favPhotos, setFavPhotos } = favPhotosContext;
+  const { lightboxIndex, setLightboxIndex } = isLightboxOpenContext;
+  const { isLightboxOpen, setIsLightboxOpen } = queryContext;
+  const { searchQuery, setSearchQuery } = searchQueryContext;
 
   const closeLightBox = () => {
     setIsLightboxOpen(false);
