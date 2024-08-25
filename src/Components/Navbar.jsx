@@ -1,8 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { useGlobalContext } from "../Context/GlobalContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { queryContext } = useGlobalContext();
+  const { setQuery } = queryContext;
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setQuery(e.target[0].value);
+  };
 
   const handleFavorite = () => {
     navigate("/favorites");
@@ -73,7 +81,10 @@ const Navbar = () => {
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
             id="navbar-sticky"
           >
-            <form className="flex items-center max-w-sm mx-auto">
+            <form
+              className="flex items-center max-w-sm mx-auto"
+              onSubmit={handleSearch}
+            >
               <label htmlFor="simple-search" className="sr-only">
                 Search
               </label>

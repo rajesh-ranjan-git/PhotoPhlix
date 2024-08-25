@@ -3,6 +3,7 @@ import { FaHeart, FaDownload, FaShare } from "react-icons/fa";
 
 const PhotoCard = ({
   photo,
+  index,
   photos,
   favPhotos,
   setFavPhotos,

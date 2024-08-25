@@ -6,11 +6,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Components/Home";
 import Error from "./Components/Error";
 import Favorites from "./Components/Favorites.jsx";
+import { GlobalContextProvider } from "./Context/GlobalContext.jsx";
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <GlobalContextProvider>
+        <App />
+      </GlobalContextProvider>
+    ),
     children: [
       {
         path: "/",

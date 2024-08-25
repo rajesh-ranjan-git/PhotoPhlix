@@ -9,6 +9,7 @@ const Home = () => {
   const [favPhotos, setFavPhotos] = useState([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const closeLightBox = () => {
     setIsLightboxOpen(false);
@@ -19,12 +20,17 @@ const Home = () => {
       setLoading(true);
       const clientID = "?client_id=AW3Og75vq_jqIfX-snfehkd6iLVRkaqE4tYA2e4gsRo";
       const mainUrl = "https://api.unsplash.com/photos/";
+      let url = mainUrl + clientID;
+
+      if (searchQuery) {
+        url = `https://api.unsplash.com/search/photos/${clientID}&query=${searchQuery}`;
+      }
 
       try {
-        const response = await fetch(`${mainUrl}${clientID}`);
+        const response = await fetch(url);
         const data = await response.json();
 
-        setPhotos(data);
+        setPhotos(data.results || data);
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -33,7 +39,7 @@ const Home = () => {
     };
 
     fetchPhotos();
-  }, []);
+  }, [searchQuery]);
 
   return (
     <main className="mt-28 mx-10">
@@ -41,12 +47,13 @@ const Home = () => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          photos.map((photo) => {
+          photos.map((photo, index) => {
             return (
               <PhotoCard
                 photo={photo}
                 photos={photos}
                 key={photo.id}
+                index={index}
                 favPhotos={favPhotos}
                 setFavPhotos={setFavPhotos}
                 setLightboxIndex={setLightboxIndex}
