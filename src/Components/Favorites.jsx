@@ -35,7 +35,9 @@ const Favorites = () => {
             );
           })
         ) : (
-          <p>No Favorite Photos yet...</p>
+          <div className="flex justify-center items-center h-[85vh]">
+            <p className="text-5xl">No Favorite Photos yet...</p>
+          </div>
         )}
       </section>
 
