@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import PhotoCard from "./PhotoCard";
+import { Lightbox } from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [favPhotos, setFavPhotos] = useState([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  const closeLightBox = () => {
+    setIsLightboxOpen(false);
+  };
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -27,22 +35,6 @@ const Home = () => {
     fetchPhotos();
   }, []);
 
-  const handleSetFavPhotos = (photoId) => {
-    const existingIndex = favPhotos.findIndex(
-      (favPhoto) => favPhoto.id === photoId
-    );
-
-    if (existingIndex !== -1) {
-      setFavPhotos((prevFavorites) => {
-        prevFavorites.filter((favPhoto) => favPhoto.id != photoId);
-      });
-    } else {
-      const photoToAdd = photos.find((photo) => photo.id !== photoId);
-      setFavPhotos((prevFavorites) => [...prevFavorites, photoToAdd]);
-      console.log(favPhotos);
-    }
-  };
-
   return (
     <main className="mt-28 mx-10">
       <section className="photos flex justify-evenly flex-wrap">
@@ -53,16 +45,25 @@ const Home = () => {
             return (
               <PhotoCard
                 photo={photo}
+                photos={photos}
                 key={photo.id}
                 favPhotos={favPhotos}
                 setFavPhotos={setFavPhotos}
-                handleSetFavPhoto={handleSetFavPhotos}
+                setLightboxIndex={setLightboxIndex}
+                setIsLightboxOpen={setIsLightboxOpen}
                 className="photo"
               />
             );
           })
         )}
       </section>
+
+      {isLightboxOpen && (
+        <Lightbox
+          close={closeLightBox}
+          mainUrl={photos[lightboxIndex].urls.full}
+        />
+      )}
     </main>
   );
 };

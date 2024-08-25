@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaHeart, FaDownload, FaShare } from "react-icons/fa";
 
-const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, setFavPhotos }) => {
+const PhotoCard = ({
+  photo,
+  photos,
+  favPhotos,
+  setFavPhotos,
+  setLightboxIndex,
+  setIsLightboxOpen,
+}) => {
+  const openLightBox = (index) => {
+    setLightboxIndex(index);
+    setIsLightboxOpen(true);
+  };
+
+  const handleSetFavPhotos = (photoId) => {
+    const existingIndex = favPhotos.findIndex(
+      (favPhoto) => favPhoto.id === photoId
+    );
+
+    if (existingIndex !== -1) {
+      setFavPhotos((prevFavorites) => {
+        prevFavorites.filter((favPhoto) => favPhoto.id != photoId);
+      });
+    } else {
+      const photoToAdd = photos.find((photo) => photo.id === photoId);
+      setFavPhotos((prevFavorites) => [...prevFavorites, photoToAdd]);
+      console.log(favPhotos);
+    }
+  };
+
   const handleShare = (photoUrl) => {
     const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
       `Checkout this awesome photo:${photoUrl}`
@@ -32,6 +60,7 @@ const PhotoCard = ({ photo, handleSetFavPhotos, favPhotos, setFavPhotos }) => {
           className="h-auto w-[100%] m-auto max-w-lg object-cover transition-all duration-300 rounded-lg blur-none hover:blur-sm"
           src={photo.urls.regular}
           alt={photo.alt_description}
+          onClick={() => openLightBox(index)}
         />
         <div className="photo info m-2">
           <div className="photo-header flex justify-between">
