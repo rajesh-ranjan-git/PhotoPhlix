@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PhotoCard from "./PhotoCard";
 import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";

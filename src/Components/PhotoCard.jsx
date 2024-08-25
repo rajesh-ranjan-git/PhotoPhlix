@@ -32,7 +32,6 @@ const PhotoCard = ({ photo, index }) => {
     } else {
       const photoToAdd = photos.find((photo) => photo.id === photoId);
       setFavPhotos((prevFavorites) => [...prevFavorites, photoToAdd]);
-      console.log(favPhotos);
     }
   };
 
