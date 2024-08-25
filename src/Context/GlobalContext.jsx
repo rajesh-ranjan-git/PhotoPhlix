@@ -10,6 +10,7 @@ const GlobalContextProvider = ({ children }) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
 
   return (
     <GlobalContext.Provider
@@ -21,6 +22,7 @@ const GlobalContextProvider = ({ children }) => {
         isLightboxOpenContext: { isLightboxOpen, setIsLightboxOpen },
         queryContext: { query, setQuery },
         searchQueryContext: { searchQuery, setSearchQuery },
+        pageContext: { page, setPage },
       }}
     >
       {children}

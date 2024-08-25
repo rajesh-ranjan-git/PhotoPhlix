@@ -8,19 +8,18 @@ const Home = () => {
   const {
     loadingContext,
     photosContext,
-    favPhotosContext,
     lightboxIndexContext,
     isLightboxOpenContext,
-    queryContext,
     searchQueryContext,
+    pageContext,
   } = useGlobalContext();
 
   const { loading, setLoading } = loadingContext;
   const { photos, setPhotos } = photosContext;
-  const { favPhotos, setFavPhotos } = favPhotosContext;
-  const { lightboxIndex, setLightboxIndex } = isLightboxOpenContext;
-  const { isLightboxOpen, setIsLightboxOpen } = queryContext;
-  const { searchQuery, setSearchQuery } = searchQueryContext;
+  const { lightboxIndex, setLightboxIndex } = lightboxIndexContext;
+  const { isLightboxOpen, setIsLightboxOpen } = isLightboxOpenContext;
+  const { searchQuery } = searchQueryContext;
+  const { page, setPage } = pageContext;
 
   const closeLightBox = () => {
     setIsLightboxOpen(false);
@@ -37,6 +36,8 @@ const Home = () => {
         url = `https://api.unsplash.com/search/photos/${clientID}&query=${searchQuery}`;
       }
 
+      url += `&page=${page}`;
+
       try {
         const response = await fetch(url);
         const data = await response.json();
@@ -50,7 +51,24 @@ const Home = () => {
     };
 
     fetchPhotos();
-  }, [searchQuery]);
+  }, [searchQuery, page]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        !loading &&
+        window.innerHeight + window.scrollY > document.body.scrollHeight - 200
+      ) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [loading]);
 
   return (
     <main className="mt-28 mx-10">
@@ -62,13 +80,8 @@ const Home = () => {
             return (
               <PhotoCard
                 photo={photo}
-                photos={photos}
                 key={photo.id}
                 index={index}
-                favPhotos={favPhotos}
-                setFavPhotos={setFavPhotos}
-                setLightboxIndex={setLightboxIndex}
-                setIsLightboxOpen={setIsLightboxOpen}
                 className="photo"
               />
             );

@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { FaHeart, FaDownload, FaShare } from "react-icons/fa";
+import { useGlobalContext } from "../Context/GlobalContext";
 
-const PhotoCard = ({
-  photo,
-  index,
-  photos,
-  favPhotos,
-  setFavPhotos,
-  setLightboxIndex,
-  setIsLightboxOpen,
-}) => {
+const PhotoCard = ({ photo, index }) => {
+  const {
+    photosContext,
+    favPhotosContext,
+    lightboxIndexContext,
+    isLightboxOpenContext,
+  } = useGlobalContext();
+
+  const { photos } = photosContext;
+  const { favPhotos, setFavPhotos } = favPhotosContext;
+  const { setLightboxIndex } = lightboxIndexContext;
+  const { setIsLightboxOpen } = isLightboxOpenContext;
+
   const openLightBox = (index) => {
     setLightboxIndex(index);
     setIsLightboxOpen(true);
