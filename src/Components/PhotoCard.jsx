@@ -89,7 +89,7 @@ const PhotoCard = ({ photo, index }) => {
     >
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-2">
         <img
-          className="h-auto w-[100%] m-auto max-w-lg object-cover transition-all duration-300 rounded-lg blur-none hover:blur-sm"
+          className="h-72 w-72 m-auto max-w-lg object-cover transition-all duration-300 rounded-lg blur-none hover:blur-sm"
           src={photo.urls.regular}
           alt={photo.alt_description}
           onClick={() => openLightBox(index)}
@@ -137,13 +137,11 @@ const PhotoCard = ({ photo, index }) => {
                 <FaDownload />
               </button>
             </div>
-            <a href="{photo.user.portfolio_url}">
-              <img
-                src={photo.user.profile_image.medium}
-                className="user-img rounded-lg"
-                alt={photo.user.name}
-              />
-            </a>
+            <img
+              src={photo.user.profile_image.medium}
+              className="user-img rounded-lg"
+              alt={photo.user.name}
+            />
           </div>
         </div>
       </div>
