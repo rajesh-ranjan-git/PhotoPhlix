@@ -48,7 +48,7 @@ const Home = () => {
         const response = await fetch(url);
         const data = await response.json();
 
-        setPhotos(data.results || data);
+        setPhotos(photos.concat(data.results || data));
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -78,7 +78,7 @@ const Home = () => {
 
   return (
     <main className="mt-28 mx-10">
-      <section className="photos flex justify-evenly flex-wrap">
+      <section className="photos flex justify-evenly flex-wrap scroll-smooth">
         {loading ? (
           <p>Loading...</p>
         ) : (
