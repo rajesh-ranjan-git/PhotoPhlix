@@ -7,6 +7,7 @@ const GlobalContextProvider = ({ children }) => {
   const [photos, setPhotos] = useState([]);
   const [favPhotos, setFavPhotos] = useState([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxArr, setLightboxArr] = useState([]);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
@@ -18,6 +19,7 @@ const GlobalContextProvider = ({ children }) => {
         photosContext: { photos, setPhotos },
         favPhotosContext: { favPhotos, setFavPhotos },
         lightboxIndexContext: { lightboxIndex, setLightboxIndex },
+        lightboxArrContext: { lightboxArr, setLightboxArr },
         isLightboxOpenContext: { isLightboxOpen, setIsLightboxOpen },
         searchQueryContext: { searchQuery, setSearchQuery },
         pageContext: { page, setPage },

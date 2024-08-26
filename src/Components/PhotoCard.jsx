@@ -1,22 +1,40 @@
 import React from "react";
 import { FaHeart, FaDownload, FaShare } from "react-icons/fa";
 import { useGlobalContext } from "../Context/GlobalContext";
+import { useLocation } from "react-router";
 
 const PhotoCard = ({ photo, index }) => {
   const {
     photosContext,
     favPhotosContext,
     lightboxIndexContext,
+    lightboxArrContext,
     isLightboxOpenContext,
   } = useGlobalContext();
 
   const { photos } = photosContext;
   const { favPhotos, setFavPhotos } = favPhotosContext;
   const { setLightboxIndex } = lightboxIndexContext;
+  const { setLightboxArr } = lightboxArrContext;
   const { setIsLightboxOpen } = isLightboxOpenContext;
 
+  const { pathname } = useLocation();
+
   const openLightBox = (index) => {
+    const photosArr = [];
+    let tempPhotos = [];
+    if (pathname == "/") {
+      tempPhotos = photos;
+    } else if (pathname == "/favorites") {
+      tempPhotos = favPhotos;
+    }
+    for (let i = 0; i < tempPhotos.length; i++) {
+      const src = tempPhotos[i].urls.full;
+      const title = tempPhotos[i].user.name;
+      photosArr.push({ src, title });
+    }
     setLightboxIndex(index);
+    setLightboxArr(photosArr);
     setIsLightboxOpen(true);
   };
 

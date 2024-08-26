@@ -1,20 +1,27 @@
 import React from "react";
 import { useGlobalContext } from "../Context/GlobalContext";
 import PhotoCard from "./PhotoCard";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import Captions from "yet-another-react-lightbox/plugins/captions";
+import "yet-another-react-lightbox/plugins/captions.css";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 const Favorites = () => {
   const {
     loadingContext,
     favPhotosContext,
     lightboxIndexContext,
+    lightboxArrContext,
     isLightboxOpenContext,
     searchQueryContext,
-    pageContext,
   } = useGlobalContext();
 
-  const { loading, setLoading } = loadingContext;
-  const { favPhotos, setFavPhotos } = favPhotosContext;
-  const { lightboxIndex, setLightboxIndex } = lightboxIndexContext;
+  const { loading } = loadingContext;
+  const { favPhotos } = favPhotosContext;
+  const { lightboxIndex } = lightboxIndexContext;
+  const { lightboxArr } = lightboxArrContext;
   const { isLightboxOpen, setIsLightboxOpen } = isLightboxOpenContext;
   const { searchQuery } = searchQueryContext;
 
@@ -43,8 +50,11 @@ const Favorites = () => {
 
       {isLightboxOpen && (
         <Lightbox
-          close={closeLightBox}
-          mainUrl={photos[lightboxIndex].urls.full}
+          open={isLightboxOpen}
+          close={() => setIsLightboxOpen(false)}
+          slides={lightboxArr}
+          plugins={[Captions, Thumbnails]}
+          index={lightboxIndex}
         />
       )}
     </main>

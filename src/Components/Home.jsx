@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import PhotoCard from "./PhotoCard";
-import { Lightbox } from "yet-another-react-lightbox";
+import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import Captions from "yet-another-react-lightbox/plugins/captions";
+import "yet-another-react-lightbox/plugins/captions.css";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { useGlobalContext } from "../Context/GlobalContext";
 
 const Home = () => {
@@ -9,6 +13,7 @@ const Home = () => {
     loadingContext,
     photosContext,
     lightboxIndexContext,
+    lightboxArrContext,
     isLightboxOpenContext,
     searchQueryContext,
     pageContext,
@@ -16,7 +21,8 @@ const Home = () => {
 
   const { loading, setLoading } = loadingContext;
   const { photos, setPhotos } = photosContext;
-  const { lightboxIndex, setLightboxIndex } = lightboxIndexContext;
+  const { lightboxIndex } = lightboxIndexContext;
+  const { lightboxArr } = lightboxArrContext;
   const { isLightboxOpen, setIsLightboxOpen } = isLightboxOpenContext;
   const { searchQuery } = searchQueryContext;
   const { page, setPage } = pageContext;
@@ -91,8 +97,11 @@ const Home = () => {
 
       {isLightboxOpen && (
         <Lightbox
+          open={isLightboxOpen}
           close={closeLightBox}
-          mainUrl={photos[lightboxIndex].urls.full}
+          slides={lightboxArr}
+          plugins={[Captions, Thumbnails]}
+          index={lightboxIndex}
         />
       )}
     </main>
