@@ -10,7 +10,6 @@ const Home = () => {
     photosContext,
     lightboxIndexContext,
     isLightboxOpenContext,
-    queryContext,
     searchQueryContext,
     pageContext,
   } = useGlobalContext();
