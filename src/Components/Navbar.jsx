@@ -13,7 +13,7 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setSearchQuery(e.target[0].value);
+    setSearchQuery(e.target[0].value.toLowerCase());
   };
 
   const handleFavorite = () => {

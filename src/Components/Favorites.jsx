@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGlobalContext } from "../Context/GlobalContext";
 import PhotoCard from "./PhotoCard";
 import Lightbox from "yet-another-react-lightbox";
@@ -12,6 +12,7 @@ const Favorites = () => {
   const {
     loadingContext,
     favPhotosContext,
+    searchedFavContext,
     lightboxIndexContext,
     lightboxArrContext,
     isLightboxOpenContext,
@@ -20,10 +21,21 @@ const Favorites = () => {
 
   const { loading } = loadingContext;
   const { favPhotos } = favPhotosContext;
+  const { searchedFav, setSearchedFav } = searchedFavContext;
   const { lightboxIndex } = lightboxIndexContext;
   const { lightboxArr } = lightboxArrContext;
   const { isLightboxOpen, setIsLightboxOpen } = isLightboxOpenContext;
   const { searchQuery } = searchQueryContext;
+
+  useEffect(() => {
+    setSearchedFav(
+      favPhotos.filter(
+        (prev) =>
+          prev.alt_description.toLowerCase().includes(searchQuery) ||
+          prev.user.name.toLowerCase().includes(searchQuery)
+      )
+    );
+  }, [searchQuery]);
 
   return (
     <main className="mt-28 mx-10">
@@ -31,16 +43,29 @@ const Favorites = () => {
         {loading ? (
           <p>Loading...</p>
         ) : favPhotos.length > 0 ? (
-          favPhotos.map((photo, index) => {
-            return (
-              <PhotoCard
-                photo={photo}
-                key={photo.id}
-                index={index}
-                className="photo"
-              />
-            );
-          })
+          searchedFav.length > 0 ? (
+            searchedFav.map((photo, index) => {
+              return (
+                <PhotoCard
+                  photo={photo}
+                  key={photo.id}
+                  index={index}
+                  className="photo"
+                />
+              );
+            })
+          ) : (
+            favPhotos.map((photo, index) => {
+              return (
+                <PhotoCard
+                  photo={photo}
+                  key={photo.id}
+                  index={index}
+                  className="photo"
+                />
+              );
+            })
+          )
         ) : (
           <div className="flex justify-center items-center h-[85vh]">
             <p className="text-5xl">No Favorite Photos yet...</p>
