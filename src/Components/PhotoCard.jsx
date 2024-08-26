@@ -7,6 +7,7 @@ const PhotoCard = ({ photo, index }) => {
   const {
     photosContext,
     favPhotosContext,
+    searchedFavContext,
     lightboxIndexContext,
     lightboxArrContext,
     isLightboxOpenContext,
@@ -14,6 +15,7 @@ const PhotoCard = ({ photo, index }) => {
 
   const { photos } = photosContext;
   const { favPhotos, setFavPhotos } = favPhotosContext;
+  const { searchedFav } = searchedFavContext;
   const { setLightboxIndex } = lightboxIndexContext;
   const { setLightboxArr } = lightboxArrContext;
   const { setIsLightboxOpen } = isLightboxOpenContext;
@@ -26,7 +28,11 @@ const PhotoCard = ({ photo, index }) => {
     if (pathname == "/") {
       tempPhotos = photos;
     } else if (pathname == "/favorites") {
-      tempPhotos = favPhotos;
+      if (searchedFav.length > 0) {
+        tempPhotos = searchedFav;
+      } else {
+        tempPhotos = favPhotos;
+      }
     }
     for (let i = 0; i < tempPhotos.length; i++) {
       const src = tempPhotos[i].urls.full;
