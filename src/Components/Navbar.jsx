@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useGlobalContext } from "../Context/GlobalContext";
 import { Link } from "react-router-dom";
@@ -6,13 +6,14 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  let inputRef = useRef();
 
-  const { queryContext } = useGlobalContext();
-  const { setQuery } = queryContext;
+  const { searchQueryContext } = useGlobalContext();
+  const { searchQuery, setSearchQuery } = searchQueryContext;
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setQuery(e.target[0].value);
+    setSearchQuery(e.target[0].value);
   };
 
   const handleFavorite = () => {
@@ -21,6 +22,11 @@ const Navbar = () => {
     } else if (pathname == "/favorites") {
       navigate("/");
     }
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    inputRef.current.value = "";
   };
 
   return (
@@ -116,9 +122,9 @@ const Navbar = () => {
                 <input
                   type="text"
                   id="simple-search"
+                  ref={inputRef}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Search Photos..."
-                  required
                 />
               </div>
               <button
@@ -142,6 +148,27 @@ const Navbar = () => {
                 </svg>
                 <span className="sr-only">Search</span>
               </button>
+              {searchQuery && (
+                <button
+                  type="text"
+                  onClick={handleClearSearch}
+                  className="p-2.5 ms-2 text-sm font-medium text-white bg-red-700 rounded-lg border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="#fff"
+                    version="1.1"
+                    id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 460.775 460.775"
+                    xmlSpace="preserve"
+                  >
+                    <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z" />
+                  </svg>
+                  <span className="sr-only">Clear Search</span>
+                </button>
+              )}
             </form>
           </div>
         </div>
