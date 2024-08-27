@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaHeart, FaDownload, FaShare } from "react-icons/fa";
 import { useGlobalContext } from "../Context/GlobalContext";
 import { useLocation } from "react-router";

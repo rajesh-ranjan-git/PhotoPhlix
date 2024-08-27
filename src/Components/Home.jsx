@@ -47,6 +47,8 @@ const Home = () => {
       const response = await fetch(url);
       const data = await response.json();
 
+      console.log(photos);
+
       setPhotos((photo) => [...photo, ...(data.results || data)]);
       setLoading(false);
     } catch (err) {

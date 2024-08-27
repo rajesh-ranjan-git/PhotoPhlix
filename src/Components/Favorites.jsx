@@ -35,7 +35,7 @@ const Favorites = () => {
           prev.user.name.toLowerCase().includes(searchQuery)
       )
     );
-  }, [searchQuery]);
+  }, [favPhotos, searchQuery]);
 
   return (
     <main className="mt-28 mx-10">
