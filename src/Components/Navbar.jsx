@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useGlobalContext } from "../Context/GlobalContext";
-import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
