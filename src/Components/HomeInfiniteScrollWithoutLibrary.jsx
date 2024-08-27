@@ -7,7 +7,6 @@ import "yet-another-react-lightbox/plugins/captions.css";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { useGlobalContext } from "../Context/GlobalContext";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 const Home = () => {
   const {
@@ -55,26 +54,33 @@ const Home = () => {
     }
   };
 
-  const fetchMoreData = () => {
-    setLoading(true);
-    setPage((prevPage) => prevPage + 1);
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+      document.documentElement.scrollHeight
+    ) {
+      setLoading(true);
+      setPage((prevPage) => prevPage + 1);
+    }
   };
 
   useEffect(() => {
     fetchPhotos();
   }, [searchQuery, page]);
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <main className="mt-28 mx-10">
-      <section>
-        <InfiniteScroll
-          className="photos flex justify-evenly flex-wrap scroll-smooth"
-          dataLength={photos.length}
-          next={fetchMoreData}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}
-        >
-          {photos.map((photo, index) => {
+      <section className="photos flex justify-evenly flex-wrap scroll-smooth">
+        {!loading ? (
+          photos.map((photo, index) => {
             return (
               <PhotoCard
                 photo={photo}
@@ -83,8 +89,10 @@ const Home = () => {
                 className="photo"
               />
             );
-          })}
-        </InfiniteScroll>
+          })
+        ) : (
+          <p>Loading...</p>
+        )}
       </section>
 
       {isLightboxOpen && (
