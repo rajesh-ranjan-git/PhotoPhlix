@@ -20,6 +20,8 @@ const Home = () => {
     pageContext,
   } = useGlobalContext();
 
+  console.log("Hello from home");
+
   const { loading, setLoading } = loadingContext;
   const { photos, setPhotos } = photosContext;
   const { lightboxIndex } = lightboxIndexContext;
@@ -47,7 +49,12 @@ const Home = () => {
       const response = await fetch(url);
       const data = await response.json();
 
-      setPhotos((photo) => [...photo, ...(data.results || data)]);
+      if (data.results === undefined) {
+        setPhotos((photo) => [...photo, ...data]);
+      } else {
+        setPhotos((photo) => [...photo, ...data.results]);
+      }
+
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -78,7 +85,7 @@ const Home = () => {
             return (
               <PhotoCard
                 photo={photo}
-                key={photo.id}
+                key={photo.id + index}
                 index={index}
                 className="photo"
               />
