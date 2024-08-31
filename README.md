@@ -1,8 +1,29 @@
-# React + Vite
+# PhotoPhlix
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h1>Rajesh Ranjan (Author)</h1>
 
-Currently, two official plugins are available:
+This is a Image Gallery Application created using React & Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can browse for images uploaded by people around the world on Unsplash.
+You can also view images which is implemented using React Lightbox.
+Share functionality also available to share photos with your loved ones through whatsapp.
+
+Tech Stacks used :
+
+> JSX <br>
+> TailWind CSS <br>
+> FlowBite Components <br>
+> React Lightbox <br>
+> Multiple functionalities like Search Bar, Favorites, Searching <br>
+> Dynamic Routing using React Routing <br>
+> Link tags <br>
+> Custom Hooks <br>
+> Higher Order Components <br>
+> Controlled and Uncontrolled components (Carousel) <br>
+> State Lifting <br>
+> Infinite Scrolling <br>
+> Redux <br>
+> Fetch for API calls <br>
+> Deployed at https://photophlix.netlify.app <br>
+
+---
